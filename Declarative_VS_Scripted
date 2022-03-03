@@ -1,37 +1,16 @@
-// Scripted Pipeline 
-
-node {
-stage('Build') {
-           
-            {                echo 'Build World1'            }
-            {                echo 'Build World2'            }
-        }
-          {                  echo 'Deploy World'            }
-             {                echo 'Deploy World1'            }             {
-                echo 'Deploy World2'            }
-        }
-
-}
-
-
-
 // Declarative Pipeline
 // agent is node where code is going to run , agent can be docker.
 // stages and steps are mandatory .
 // we have option to add and let see what would happen when any of the stage fails. 
 
 pipeline {
-    agent any
+    agent { docker { image  'node:13.8' } }
     stages {
-        stage('Build') {      steps {  echo 'Build World' }{ echo 'Build World1' }{ echo 'Build World2' } }
-        stage('Deploy') {   steps {  echo 'Build World' }{ echo 'Build World1' }{ echo 'Build World2' } }
-        stage('Test') {  echo 'Build World' }{ echo 'Build World1' }{ echo 'Build World2' } 
-         stage('Release'){  echo 'Build World' }{ echo 'Build World1' }{ echo 'Build World2' } 
-         stage('Deployment')  { steps {echo 'Release Deployment'}{echo 'Release Deployment' } {echo 'Release Deployment'}
-        }
+        stage('Build')           {steps {  sh 'node --version' }}
+        stage('Deploy')          {steps {  echo 'Build World' }}
+        stage('Test')            {steps { echo 'Build World' } }
     }
-    post {
-    
+    post {    
     always { echo ' i always run ' }
     success { echo ' i always when you are successful' }
     failure { echo ' i always run when you are a failure' }
