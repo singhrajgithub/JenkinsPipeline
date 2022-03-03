@@ -46,5 +46,17 @@ pipeline {
                 echo 'Release World2'
             }
         }
+        
+      stage('Deployment')  {
+            steps {
+                echo 'Release Deployment'
+            }
+             {
+                echo 'Release Deployment'
+            }
+             {
+                echo 'Release Deployment'
+            }
+        }
     }     
 }
